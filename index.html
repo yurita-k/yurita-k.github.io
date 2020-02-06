@@ -111,16 +111,16 @@
                 // Game/Render loop
                 scene.onBeforeRenderObservable.add(()=>{
                     if(inputMap["w"] || inputMap["ArrowUp"]){
-                        dude.position.z+=0.1
+                        scene.position.z+=0.1
                     } 
                     if(inputMap["a"] || inputMap["ArrowLeft"]){
-                        dude.position.x-=0.1
+                        scene.position.x-=0.1
                     } 
                     if(inputMap["s"] || inputMap["ArrowDown"]){
-                        dude.position.z-=0.1
+                        scene.position.z-=0.1
                     } 
                     if(inputMap["d"] || inputMap["ArrowRight"]){
-                        dude.position.x+=0.1
+                        scene.position.x+=0.1
                     }    
                 })
 
