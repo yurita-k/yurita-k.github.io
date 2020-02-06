@@ -37,30 +37,76 @@
         /******* Add the create scene function ******/
         var createScene = function () {
 
-            // Create the scene space
+            // This creates a basic Babylon Scene object (non-mesh)
             var scene = new BABYLON.Scene(engine);
 
-            // Add a camera to the scene and attach it to the canvas
-            var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, new BABYLON.Vector3(0,0,5), scene);
+            // This creates and positions a free camera (non-mesh)
+            var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 3, -5), scene);
+
+            // This targets the camera to scene origin
+            camera.setTarget(BABYLON.Vector3.Zero());
+
+            // This attaches the camera to the canvas
             camera.attachControl(canvas, true);
+            scene.debugLayer.show()
 
-            // Add lights to the scene
-            var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(1, 1, 0), scene);
-            var light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 1, -1), scene);
+            // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+            var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
 
-            // Add and manipulate meshes in the scene
-            var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter:2}, scene);
-            sphere.position.y += 1;
+            // Default intensity is 1. Let's dim the light a small amount
+            light.intensity = 0.7;
+
+            // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
+            var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
+
+            // Move the sphere upward 1/2 its height    
+            sphere.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
+
+            var materialSphere = new BABYLON.StandardMaterial("texture1", scene);
+            materialSphere.diffuseColor = BABYLON.Color3.Red();
+            sphere.material = materialSphere;
+
+            // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
+            var ground = BABYLON.Mesh.CreateGround("ground1", 100, 100, 1, scene);
+
+            var dude;
+            var skeleton;
+
+            var scaleMatrix1 = BABYLON.Matrix.Compose(new BABYLON.Vector3(.5,.5,.5), BABYLON.Quaternion.Identity(), BABYLON.Vector3.Zero());
+
+            var scaleMatrix2 = BABYLON.Matrix.Compose(new BABYLON.Vector3(10,10,10), BABYLON.Quaternion.Identity(), BABYLON.Vector3.Zero());
+
+            BABYLON.SceneLoader.ImportMesh("", "scene/BrainStem/", "BrainStem.gltf", scene, function (newMeshes, particleSystems, skeletons) {
+                console.log(newMeshes)
+                console.log(skeletons)
+                dude = newMeshes[1];
+                skeleton = skeletons[0];
+            //	console.log(skeleton.bones)
+                dude.rotation.y = Math.PI;
+                dude.scaling = new BABYLON.Vector3(0.02,0.02,0.02);
+                dude.position = new BABYLON.Vector3(0, 0, 0);
+                skeleton.position = new BABYLON.Vector3(0, 0, 0);
+                skeleton.scaling = new BABYLON.Vector3(0.02,0.02,0.02);
+                
+                scene.beginAnimation(skeletons[0], 0, 100, true, 1.0);
+                
+                scene.registerBeforeRender(function () {
+                    
+                    sphere.position = skeleton.bones[18].getAbsolutePosition(dude)
+                    
+                });
+            });
 
             return scene;
         };
+
+
         /******* End of the create scene function ******/    
 
         var scene = createScene(); //Call the createScene function
 
         // Register a render loop to repeatedly render the scene
         engine.runRenderLoop(function () { 
-            scene.meshes[0].position.x+=0.01
             scene.render();
         });
 
