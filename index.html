@@ -77,7 +77,7 @@
 
             var scaleMatrix2 = BABYLON.Matrix.Compose(new BABYLON.Vector3(10,10,10), BABYLON.Quaternion.Identity(), BABYLON.Vector3.Zero());
 
-            BABYLON.SceneLoader.ImportMesh("", "scene/BrainStem/", "BrainStem.gltf", scene, function (newMeshes, particleSystems, skeletons) {
+            BABYLON.SceneLoader.ImportMesh("", "scene/Dude/", "dude.babylon", scene, function (newMeshes, particleSystems, skeletons) {
                 console.log(newMeshes)
                 console.log(skeletons)
                 dude = newMeshes[1];
