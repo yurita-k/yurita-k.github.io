@@ -108,7 +108,7 @@
                 }));
                 
                 // Game/Render loop
-                scene.onBeforeRenderObservable.add((dude)=>{
+                scene.onBeforeRenderObservable.add(()=>{
                     if(inputMap["w"] || inputMap["ArrowUp"]){
                         dude.position.z+=0.1
                     } 
