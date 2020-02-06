@@ -108,18 +108,18 @@
                 }));
                 
                 // Game/Render loop
-                scene.onBeforeRenderObservable.add((dudu)=>{
+                scene.onBeforeRenderObservable.add((dude)=>{
                     if(inputMap["w"] || inputMap["ArrowUp"]){
-                        dudu.position.z+=0.1
+                        dude.position.z+=0.1
                     } 
                     if(inputMap["a"] || inputMap["ArrowLeft"]){
-                        dudu.position.x-=0.1
+                        dude.position.x-=0.1
                     } 
                     if(inputMap["s"] || inputMap["ArrowDown"]){
-                        dudu.position.z-=0.1
+                        dude.position.z-=0.1
                     } 
                     if(inputMap["d"] || inputMap["ArrowRight"]){
-                        dudu.position.x+=0.1
+                        dude.position.x+=0.1
                     }    
                 })
 
