@@ -111,7 +111,7 @@
                 
                 // Game/Render loop
                 scene.onBeforeRenderObservable.add(()=>{
-                    for( var mesh of meshes )
+                    for( var mesh in meshes )
                     {
                         if(inputMap["w"] || inputMap["ArrowUp"]){
                             mesh.position.z+=0.1
