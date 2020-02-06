@@ -94,6 +94,7 @@
                 scene.registerBeforeRender(function () {
                     
                     sphere.position = skeleton.bones[18].getAbsolutePosition(dude)
+                    skeleton.position = skeleton.bones[18].getAbsolutePosition(dude)
                     
                 });
 
@@ -110,16 +111,16 @@
                 // Game/Render loop
                 scene.onBeforeRenderObservable.add(()=>{
                     if(inputMap["w"] || inputMap["ArrowUp"]){
-                        skeleton.position.z+=0.1
+                        dude.position.z+=0.1
                     } 
                     if(inputMap["a"] || inputMap["ArrowLeft"]){
-                        skeleton.position.x-=0.1
+                        dude.position.x-=0.1
                     } 
                     if(inputMap["s"] || inputMap["ArrowDown"]){
-                        skeleton.position.z-=0.1
+                        dude.position.z-=0.1
                     } 
                     if(inputMap["d"] || inputMap["ArrowRight"]){
-                        skeleton.position.x+=0.1
+                        dude.position.x+=0.1
                     }    
                 })
 
