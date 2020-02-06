@@ -112,6 +112,7 @@
                 scene.onBeforeRenderObservable.add(()=>{
                     for( var mesh of scene.meshes )
                     {
+                        console.log( "id : " + mesh.Identity );
                         if ( mesh.Identity != "__root__" )
                             continue;
 
