@@ -112,6 +112,9 @@
                 scene.onBeforeRenderObservable.add(()=>{
                     for( var mesh of scene.meshes )
                     {
+                        if ( mesh.Identity != "__root__" )
+                            continue;
+
                         if(inputMap["w"] || inputMap["ArrowUp"]){
                             mesh.position.z+=0.1
                         } 
