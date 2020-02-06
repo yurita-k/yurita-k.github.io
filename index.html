@@ -110,24 +110,20 @@
                 
                 // Game/Render loop
                 scene.onBeforeRenderObservable.add(()=>{
-                    for( var mesh of scene.meshes )
-                    {
-                        console.log( "id : " + mesh.Identity );
-                        if ( mesh.Identity != "__root__" )
-                            continue;
 
-                        if(inputMap["w"] || inputMap["ArrowUp"]){
-                            mesh.position.z+=0.1
-                        } 
-                        if(inputMap["a"] || inputMap["ArrowLeft"]){
-                            mesh.position.x-=0.1
-                        } 
-                        if(inputMap["s"] || inputMap["ArrowDown"]){
-                            mesh.position.z-=0.1
-                        } 
-                        if(inputMap["d"] || inputMap["ArrowRight"]){
-                            mesh.position.x+=0.1
-                        }
+                    var mesh = scene.meshes[1];
+
+                    if(inputMap["w"] || inputMap["ArrowUp"]){
+                        mesh.position.z+=0.1
+                    } 
+                    if(inputMap["a"] || inputMap["ArrowLeft"]){
+                        mesh.position.x-=0.1
+                    } 
+                    if(inputMap["s"] || inputMap["ArrowDown"]){
+                        mesh.position.z-=0.1
+                    } 
+                    if(inputMap["d"] || inputMap["ArrowRight"]){
+                        mesh.position.x+=0.1
                     }
                 })
 
