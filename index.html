@@ -15,12 +15,14 @@
             }
 
             #renderCanvas {
-                width: 50%;
-                height: 50%;
+                width: 80%;
+                height: 80%;
                 touch-action: none;
             }
         </style>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.2.0/pixi.min.js" ></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="https://preview.babylonjs.com/babylon.js"></script>
         <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
         <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
@@ -133,7 +135,7 @@
                 })
 
             });
-
+            
             return scene;
         };
 
@@ -142,9 +144,29 @@
 
         var scene = createScene(); //Call the createScene function
 
+        var pixiRenderer = new PIXI.WebGLRenderer({
+            context: engine._gl,
+            view: engine.getRenderingCanvas(),
+            clearBeforeRender: false,
+            autoStart: false
+        });
+        var stage = new PIXI.Container();
+        var sprite = PIXI.Sprite.from('https://i.imgur.com/1yLS2b8.jpg');
+        sprite.anchor.set(0.5);
+        sprite.position.set(canvas.width/2, canvas.height/2);
+        stage.addChild(sprite);        
+
         // Register a render loop to repeatedly render the scene
         engine.runRenderLoop(function () { 
-            scene.render();
+            if(engine.webGLVersion === 1) 
+            {
+                pixiRenderer.reset();
+            }
+            scene.render();        
+            engine.wipeCaches(true);
+
+            pixiRenderer.reset();
+            pixiRenderer.render(stage);
         });
 
         // Watch for browser/canvas resize events
