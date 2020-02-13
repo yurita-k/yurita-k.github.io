@@ -153,7 +153,7 @@
         var stage = new PIXI.Container();
         var sprite = PIXI.Sprite.from('https://i.imgur.com/1yLS2b8.jpg');
         sprite.anchor.set(0.5);
-        sprite.position.set(canvas.width/2, canvas.height/2);
+        sprite.position.set(canvas.width * 0.5, canvas.height * 0.9);
         stage.addChild(sprite);        
 
         // Register a render loop to repeatedly render the scene
